@@ -1,11 +1,25 @@
 const router = require('express').Router();
 const { Property, validateProperty } = require('../models/property');
+const moment = require('moment');
+
+const calculateDate = (startDate, dayOfWeek, weekNumber) => {
+  const myMonth = moment(startDate).startOf('month');
+  const firstDayOfWeek = myMonth.clone().weekday(dayOfWeek);
+  if (firstDayOfWeek.month() != myMonth.month()) weekNumber++;
+  return firstDayOfWeek.add(weekNumber - 1, 'weeks');
+};
+
+const seasonYear = moment().subtract(5, 'months');
+const secondSaturdayOfDecember = calculateDate(`${seasonYear.format('Y')}-12`, 6, 2);
+const secondSundayOfDecember = calculateDate(`${seasonYear.format('Y')}-12`, 6, 2).add(1, 'day');
 
 // @route   POST /api/properties
 // @desc    Fetch properties list
 // @access  Public
 router.get('/', (req, res) => {
-  res.send('Properties route works!');
+  console.log(secondSaturdayOfDecember.format('Do'));
+  console.log(secondSundayOfDecember.format('Do'));
+  res.send(`Result: ${secondSaturdayOfDecember.format('Do')}`);
 });
 
 // @route   POST /api/properties
@@ -39,7 +53,7 @@ router.post('/', async (req, res) => {
     res.send(property);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Internal server error');
+    res.sendStatus(500);
   }
 });
 
