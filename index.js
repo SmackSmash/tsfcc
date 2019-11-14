@@ -5,8 +5,9 @@ const { PORT } = require('./config/keys');
 const app = express();
 require('./services/dbConnect')();
 
-app.use('/users', require('./routes/users'));
-app.use('/properties', require('./routes/properties'));
+app.use(express.json());
+
+app.use('/api/users', require('./routes/users'));
+app.use('/api/properties', require('./routes/properties'));
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
-console.log(process.env.NODE_ENV);
