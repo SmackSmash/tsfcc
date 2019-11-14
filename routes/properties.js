@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Property, validateProperty } = require('../models/property');
 
 // @route   POST /api/properties
 // @desc    Fetch properties list
@@ -11,7 +12,19 @@ router.get('/', (req, res) => {
 // @desc    Add property
 // @access  Private
 router.post('/', (req, res) => {
-  res.send(req.body);
+  const result = validateProperty.validate(req.body, { abortEarly: false });
+  if (result.error) {
+    return res.status(422).send({
+      errors: result.error.details.map(({ message }) => message)
+    });
+  }
+  const { name, capacityMin, capacityMax } = req.body;
+  try {
+    res.send(req.body);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Internal server error');
+  }
 });
 
 module.exports = router;

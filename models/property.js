@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('@hapi/joi');
 
 const propertySchema = new mongoose.Schema({
   name: {
@@ -17,4 +18,18 @@ const propertySchema = new mongoose.Schema({
 
 const Property = mongoose.model('property', propertySchema);
 
-module.exports = Property;
+const validateProperty = Joi.object({
+  name: Joi.string()
+    .required()
+    .min(5),
+  capacityMin: Joi.number()
+    .integer()
+    .required()
+    .min(1),
+  capacityMax: Joi.number()
+    .integer()
+    .required()
+    .min(1)
+});
+
+module.exports = { Property, validateProperty };
