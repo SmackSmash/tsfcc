@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 // @route   POST /api/properties
 // @desc    Add property
 // @access  Private
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const result = validateProperty.validate(req.body, { abortEarly: false });
   if (result.error) {
     return res.status(422).send({
@@ -20,7 +20,21 @@ router.post('/', (req, res) => {
   }
   const { name, capacityMin, capacityMax } = req.body;
   try {
-    res.send(req.body);
+    let property = await Property.findOne({ name });
+    if (property) {
+      return res.status(409).send({
+        errors: [
+          `Property with name '${name}' already exists. Perhaps you would like to update the property?`
+        ]
+      });
+    }
+    property = new Property({
+      name,
+      capacityMin,
+      capacityMax
+    });
+    await property.save();
+    res.send(property);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Internal server error');
