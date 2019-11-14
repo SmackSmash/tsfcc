@@ -13,6 +13,16 @@ const propertySchema = new mongoose.Schema({
   capacityMax: {
     type: Number,
     required: true
+  },
+  changeover: {
+    type: String,
+    required: true,
+    default: 'Saturday'
+  },
+  availability: {
+    type: [Number],
+    required: true,
+    default: new Array(17).fill(null)
   }
 });
 
@@ -29,7 +39,8 @@ const validateProperty = Joi.object({
   capacityMax: Joi.number()
     .integer()
     .required()
-    .min(1)
+    .min(1),
+  availability: Joi.array().length(17)
 });
 
 module.exports = { Property, validateProperty };

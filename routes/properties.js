@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
       errors: result.error.details.map(({ message }) => message)
     });
   }
-  const { name, capacityMin, capacityMax } = req.body;
+  const { name, capacityMin, capacityMax, changeover, availability } = req.body;
   try {
     let property = await Property.findOne({ name });
     if (property) {
@@ -31,7 +31,9 @@ router.post('/', async (req, res) => {
     property = new Property({
       name,
       capacityMin,
-      capacityMax
+      capacityMax,
+      changeover,
+      availability
     });
     await property.save();
     res.send(property);
