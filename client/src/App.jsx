@@ -6,11 +6,10 @@ const App = props => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      const properties = await axios.get('/api/properties');
-      setProperties(properties.data);
-    };
-    fetchProperties();
+    axios
+      .get('/api/properties')
+      .then(result => setProperties(result.data))
+      .catch(error => console.error(error.message));
   }, []);
 
   if (!properties.length) {
@@ -19,7 +18,9 @@ const App = props => {
   return (
     <div>
       {properties.map(property => (
-        <h3 key={property._id}>{property.name}</h3>
+        <h3 key={property._id}>
+          {property.name} ({property.capacityMin} - {property.capacityMax})
+        </h3>
       ))}
     </div>
   );
