@@ -16,3 +16,9 @@ New modern API and React front end for TSFCC
   - POST /users/signup (Sign up admin user) // DELETE FOR PRODUCTION!
   - POST /users/signin (Sign in admin user)
   - GET /users/signout (Sign out admin user)
+
+### Deployment Instructions
+
+- Clone repo to digital ocean via ssh
+- In /tsfcc add production .env file (port 80) and run 'npm install'
+- In /tsfcc/client run 'npm install' and 'npm run build'
