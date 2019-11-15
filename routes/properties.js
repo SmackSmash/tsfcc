@@ -16,10 +16,14 @@ const secondSundayOfDecember = calculateDate(`${seasonYear.format('Y')}-12`, 6, 
 // @route   POST /api/properties
 // @desc    Fetch properties list
 // @access  Public
-router.get('/', (req, res) => {
-  console.log(secondSaturdayOfDecember.format('Do'));
-  console.log(secondSundayOfDecember.format('Do'));
-  res.send(`Result: ${secondSaturdayOfDecember.format('Do')}`);
+router.get('/', async (req, res) => {
+  try {
+    const properties = await Property.find().select(['name', 'capacityMin', 'capacityMax']);
+    res.send(properties);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
 });
 
 // @route   POST /api/properties
