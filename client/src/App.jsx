@@ -4,7 +4,7 @@ import Home from './pages/Home/Home';
 import Properties from './pages/Properties/Properties';
 import './App.scss';
 
-const App = proper => {
+const App = props => {
   return (
     <BrowserRouter>
       <Switch>
