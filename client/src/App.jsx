@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home/Home';
+import Properties from './pages/Properties/Properties';
 import './App.scss';
 
-const App = props => {
-  const [properties, setProperties] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('/api/properties')
-      .then(result => setProperties(result.data))
-      .catch(error => console.error(error.message));
-  }, []);
-
-  if (!properties.length) {
-    return <div>No properties</div>;
-  }
+const App = proper => {
   return (
-    <div>
-      {properties.map(property => (
-        <h3 key={property._id}>
-          {property.name} ({property.capacityMin} - {property.capacityMax})
-        </h3>
-      ))}
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/properties" component={Properties} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 
