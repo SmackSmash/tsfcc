@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchProperties } from '../../actions';
 
-const Properties = props => {
-  const [properties, setProperties] = useState([]);
+const Properties = ({ properties, fetchProperties }) => {
+  console.log(properties);
 
   useEffect(() => {
-    axios
-      .get('/api/properties')
-      .then(result => setProperties(result.data))
-      .catch(error => console.error(error.message));
-  }, []);
+    fetchProperties();
+  }, [fetchProperties]);
 
   if (!properties.length) {
     return <div>No properties</div>;
@@ -25,4 +23,6 @@ const Properties = props => {
   );
 };
 
-export default Properties;
+const mapStateToProps = ({ properties }) => ({ properties });
+
+export default connect(mapStateToProps, { fetchProperties })(Properties);
