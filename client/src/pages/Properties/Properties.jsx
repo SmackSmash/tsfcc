@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchProperties } from '../../actions';
 
 const Properties = ({ properties, fetchProperties }) => {
@@ -19,6 +20,11 @@ const Properties = ({ properties, fetchProperties }) => {
       ))}
     </div>
   );
+};
+
+Properties.propTypes = {
+  properties: PropTypes.array,
+  fetchProperties: PropTypes.func
 };
 
 const mapStateToProps = ({ properties }) => ({ properties });

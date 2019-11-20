@@ -5,7 +5,7 @@ const INITIAL_STATE = [];
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_PROPERTIES_SUCCESS:
-      return [...action.payload];
+      return action.payload;
     case FETCH_PROPERTIES_ERROR:
     default:
       return state;
