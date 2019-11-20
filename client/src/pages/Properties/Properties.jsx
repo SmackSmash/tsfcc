@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { fetchProperties } from '../../actions';
 
 const Properties = ({ properties, fetchProperties }) => {
-  console.log(properties);
-
   useEffect(() => {
     fetchProperties();
   }, [fetchProperties]);
