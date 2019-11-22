@@ -13,7 +13,7 @@ const seasonYear = moment().subtract(5, 'months');
 const secondSaturdayOfDecember = calculateDate(`${seasonYear.format('Y')}-12`, 6, 2);
 const secondSundayOfDecember = calculateDate(`${seasonYear.format('Y')}-12`, 6, 2).add(1, 'day');
 
-// @route   POST /api/properties
+// @route   GET /api/properties
 // @desc    Fetch properties list
 // @access  Public
 router.get('/', async (req, res) => {
