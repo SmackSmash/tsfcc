@@ -26,6 +26,29 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route   GET /api/properties/:id
+// @desc    Fetch iundividual property
+// @access  Public
+router.get('/:id', async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      return res.status(404).send({
+        errors: ['Property not found']
+      });
+    }
+    res.send(property);
+  } catch (error) {
+    console.error(error.message);
+    if (error.kind === 'ObjectId') {
+      return res.status(404).send({
+        errors: ['Property not found']
+      });
+    }
+    res.sendStatus(500);
+  }
+});
+
 // @route   POST /api/properties
 // @desc    Add property
 // @access  Private
