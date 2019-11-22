@@ -15,7 +15,6 @@ New modern API and React front end for TSFCC
 - Users
   - POST /users/signup (Sign up admin user) // DELETE FOR PRODUCTION!
   - POST /users/signin (Sign in admin user)
-  - GET /users/signout (Sign out admin user)
 
 ### Deployment Instructions
 
