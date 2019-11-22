@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
-import { watchFetchProperties } from './sagas/propertiesSaga';
+import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -11,6 +11,6 @@ const enhancers = composeEnhancers(applyMiddleware(sagaMiddleware));
 
 const store = createStore(rootReducer, {}, enhancers);
 
-sagaMiddleware.run(watchFetchProperties);
+sagaMiddleware.run(rootSaga);
 
 export default store;

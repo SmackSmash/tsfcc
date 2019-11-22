@@ -6,7 +6,7 @@ import Input from '../Input/Input';
 import FormGroup from '../FormGroup/FormGroup';
 import Button from '../Button/Button';
 
-const SignInForm = ({ signIn }) => {
+const SignInForm = ({ auth: { loading, errors }, signIn }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -29,14 +29,17 @@ const SignInForm = ({ signIn }) => {
         <Input type="password" name="password" onChange={handleChange} value={formData.password} />
       </FormGroup>
       <FormGroup>
-        <Button type="submit" text="Sign In" />
+        <Button type="submit" text={loading ? 'Loading' : 'Sign In'} />
       </FormGroup>
     </form>
   );
 };
 
 SignInForm.propTypes = {
-  signIn: PropTypes.func.isRequired
+  signIn: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
-export default connect(null, { signIn })(SignInForm);
+const mapStateToProps = ({ auth }) => ({ auth });
+
+export default connect(mapStateToProps, { signIn })(SignInForm);
