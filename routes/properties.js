@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Property, validateProperty } = require('../models/property');
 const moment = require('moment');
+const handleServerError = require('../utils/handleServerError');
 
 const calculateDate = (startDate, dayOfWeek, weekNumber) => {
   const myMonth = moment(startDate).startOf('month');
@@ -21,8 +22,7 @@ router.get('/', async (req, res) => {
     const properties = await Property.find().select(['name', 'capacityMin', 'capacityMax']);
     res.send(properties);
   } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
+    handleServerError(res, error);
   }
 });
 
@@ -39,13 +39,12 @@ router.get('/:id', async (req, res) => {
     }
     res.send(property);
   } catch (error) {
-    console.error(error.message);
     if (error.kind === 'ObjectId') {
       return res.status(404).send({
         errors: ['Property not found']
       });
     }
-    res.sendStatus(500);
+    handleServerError(res, error);
   }
 });
 
@@ -79,8 +78,7 @@ router.post('/', async (req, res) => {
     await property.save();
     res.send(property);
   } catch (error) {
-    console.error(error.message);
-    res.sendStatus(500);
+    handleServerError(res, error);
   }
 });
 
