@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
+router.post('/signup', (req, res) => {
   res.send('Users route works!');
 });
 
