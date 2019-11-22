@@ -1,0 +1,42 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { signIn } from '../../../actions';
+import Input from '../Input/Input';
+import FormGroup from '../FormGroup/FormGroup';
+import Button from '../Button/Button';
+
+const SignInForm = ({ signIn }) => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  });
+
+  const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    signIn(formData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <h3>Sign in</h3>
+      <FormGroup>
+        <Input name="username" onChange={handleChange} value={formData.username} />
+      </FormGroup>
+      <FormGroup>
+        <Input type="password" name="password" onChange={handleChange} value={formData.password} />
+      </FormGroup>
+      <FormGroup>
+        <Button type="submit" text="Sign In" />
+      </FormGroup>
+    </form>
+  );
+};
+
+SignInForm.propTypes = {
+  signIn: PropTypes.func.isRequired
+};
+
+export default connect(null, { signIn })(SignInForm);

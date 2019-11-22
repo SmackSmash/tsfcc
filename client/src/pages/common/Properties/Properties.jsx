@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchProperties } from '../../actions';
+import { fetchProperties } from '../../../actions';
 
 const Properties = ({ properties, fetchProperties }) => {
   useEffect(() => {
