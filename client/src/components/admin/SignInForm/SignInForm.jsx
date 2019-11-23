@@ -23,11 +23,18 @@ const SignInForm = ({ auth: { loading, errors }, signIn }) => {
     <form onSubmit={handleSubmit}>
       <h3>Sign in</h3>
       <FormGroup>
-        <Input name="username" onChange={handleChange} value={formData.username} />
+        <Input name="username" label="Username" onChange={handleChange} value={formData.username} />
       </FormGroup>
       <FormGroup>
-        <Input type="password" name="password" onChange={handleChange} value={formData.password} />
+        <Input
+          type="password"
+          name="password"
+          label="Password"
+          onChange={handleChange}
+          value={formData.password}
+        />
       </FormGroup>
+      {errors ? errors.map(error => <p>{error}</p>) : null}
       <FormGroup>
         <Button type="submit" text={loading ? 'Loading' : 'Sign In'} />
       </FormGroup>
