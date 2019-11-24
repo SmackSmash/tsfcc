@@ -7,4 +7,18 @@
   cursor: pointer;
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   text-transform: uppercase;
+  border-radius: 5px;
+  outline: none;
+
+  &:hover {
+    position: relative;
+    top: -1px;
+  }
+  &:active {
+    top: 0;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: grey;
+  }
 }

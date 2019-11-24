@@ -1,20 +1,9 @@
 .sign-in {
   width: 300px;
   padding: 1rem;
-  background: #ccc;
+  background: #fff;
   margin: 3rem auto;
   border-radius: 5px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.8);
   animation: slide-in 1s;
-}
-
-@keyframes slide-in {
-  0% {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0px);
-    opacity: 1;
-  }
 }

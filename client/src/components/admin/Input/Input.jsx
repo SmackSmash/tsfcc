@@ -5,8 +5,10 @@ import './Input.scss';
 
 const Input = ({ type, name, label, value, onChange, onBlur, error, errorMessage }) => {
   return (
-    <>
-      <label htmlFor={name}>{label}</label>
+    <div className="admin-input">
+      <label className="label" htmlFor={name}>
+        {label}
+      </label>
       <input
         className={`input${error ? ' error' : ''}`}
         name={name}
@@ -17,7 +19,7 @@ const Input = ({ type, name, label, value, onChange, onBlur, error, errorMessage
         onBlur={onBlur}
       />
       {error ? <Error errorMessage={errorMessage} /> : null}
-    </>
+    </div>
   );
 };
 
