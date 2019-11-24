@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config/keys');
-const handleServerError = require('../utils/handleServerError');
 
 module.exports = (req, res, next) => {
   const token = req.headers['x-auth-token'];
@@ -14,6 +13,8 @@ module.exports = (req, res, next) => {
     req.user = decoded.user;
     next();
   } catch (error) {
-    handleServerError(res, error);
+    console.error(error.message);
+    res.status(401).send({ errors: ['Token is not valid'] });
+    process.exit(1);
   }
 };
