@@ -8,8 +8,9 @@ const { JWT_SECRET } = require('../config/keys');
 // @route   GET /api/users
 // @desc    Authorize user
 // @access  Private
-router.get('/', auth, (req, res) => {
-  res.send(req.user);
+router.get('/', auth, async (req, res) => {
+  const user = await User.findOne({ username: req.user }).select('username');
+  res.send(user);
 });
 
 // @route   POST /api/users/signup

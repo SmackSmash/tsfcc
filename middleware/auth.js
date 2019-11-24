@@ -14,7 +14,6 @@ module.exports = (req, res, next) => {
     next();
   } catch (error) {
     console.error(error.message);
-    res.status(401).send({ errors: ['Token is not valid'] });
-    process.exit(1);
+    res.status(401).send({ errors: [error.message] });
   }
 };
