@@ -1,0 +1,31 @@
+.test {
+  width: 300px;
+  display: block;
+  background: #ccc;
+  margin: 4rem auto;
+  padding: 1rem;
+  border-radius: 5px;
+
+  input {
+    display: block;
+    width: 100%;
+    border: solid 1px #999;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+  }
+  button {
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 1rem;
+    border-radius: 3px;
+    background: darkcyan;
+    color: #fff;
+  }
+  .error {
+    font-family: 'Gotham';
+    color: darkred;
+    margin-bottom: 30px;
+  }
+}
