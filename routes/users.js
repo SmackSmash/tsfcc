@@ -1,8 +1,16 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const auth = require('../middleware/auth');
 const { User, validateUser } = require('../models/users');
 const { JWT_SECRET } = require('../config/keys');
+
+// @route   GET /api/users
+// @desc    Authorize user
+// @access  Private
+router.get('/', auth, (req, res) => {
+  res.send(req.user);
+});
 
 // @route   POST /api/users/signup
 // @desc    Sign up admin user
