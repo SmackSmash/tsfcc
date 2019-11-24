@@ -1,19 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Error from '../Error/Error';
 import './Input.scss';
 
-const Input = ({ type, name, label, value, onChange }) => {
+const Input = ({ type, name, label, value, onChange, onBlur, error, errorMessage }) => {
   return (
     <>
       <label htmlFor={name}>{label}</label>
       <input
-        className="input"
+        className={`input${error ? ' error' : ''}`}
         name={name}
         id={name}
         type={type || 'text'}
-        onChange={onChange}
         value={value}
+        onChange={onChange}
+        onBlur={onBlur}
       />
+      {error ? <Error errorMessage={errorMessage} /> : null}
     </>
   );
 };
@@ -22,7 +25,8 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired
 };
 
 export default Input;
