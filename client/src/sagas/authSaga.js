@@ -1,11 +1,17 @@
 import { takeLatest, put } from 'redux-saga/effects';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_ERROR } from '../actions/types';
+import { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_ERROR, LOAD_USER } from '../actions/types';
+import setAuthToken from '../utils/setAuthToken';
 
 // Watchers
 export function* watchSignIn() {
   yield takeLatest(SIGN_IN, signInAsync);
+}
+
+export function* watchLoadUser() {
+  const token = setAuthToken();
+  if (token) yield takeLatest(LOAD_USER, loadUserAsync);
 }
 
 // Workers
@@ -22,6 +28,37 @@ function* signInAsync(action) {
         user: decoded.user
       }
     });
+  } catch (error) {
+    console.error(error);
+    localStorage.removeItem('token');
+    const errors = error.response.data.errors;
+    yield put({
+      type: SIGN_IN_ERROR,
+      payload: errors
+    });
+  }
+}
+
+function* loadUserAsync() {
+  try {
+    const response = yield axios.get('/api/users');
+    if (response.data.errors) {
+      console.error(response.data.errors);
+      localStorage.removeItem('token');
+      const errors = response.data.errors;
+      yield put({
+        type: SIGN_IN_ERROR,
+        payload: errors
+      });
+    } else {
+      yield put({
+        type: SIGN_IN_SUCCESS,
+        payload: {
+          token: localStorage.getItem('token'),
+          user: response.data.username
+        }
+      });
+    }
   } catch (error) {
     console.error(error);
     localStorage.removeItem('token');

@@ -1,7 +1,7 @@
 import { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_ERROR } from '../actions/types';
 
 const INITIAL_STATE = {
-  token: localStorage.getItem('token'),
+  token: null,
   isAuthenticated: null,
   loading: false,
   errors: null,

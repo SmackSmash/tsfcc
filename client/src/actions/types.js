@@ -5,3 +5,7 @@ export const FETCH_PROPERTIES_ERROR = 'FETCH_PROPERTIES_ERROR';
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_ERROR = 'SIGN_IN_ERROR';
+
+export const LOAD_USER = 'LOAD_USER';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_ERROR = 'LOAD_USER_ERROR';

@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import propTypes from 'prop-types';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loadUser } from './actions';
 import Home from './pages/common/Home/Home';
 import Properties from './pages/common/Properties/Properties';
 import SignIn from './pages/admin/SignIn/SignIn';
@@ -8,7 +11,11 @@ import './App.scss';
 
 import FormTest from './pages/FormTest';
 
-const App = props => {
+const App = ({ loadUser }) => {
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
+
   return (
     <BrowserRouter>
       <Switch>
@@ -22,4 +29,8 @@ const App = props => {
   );
 };
 
-export default App;
+App.propTypes = {
+  loadUser: propTypes.func.isRequired
+};
+
+export default connect(null, { loadUser })(App);

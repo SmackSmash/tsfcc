@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 import { watchFetchProperties } from './propertiesSaga';
-import { watchSignIn } from './authSaga';
+import { watchLoadUser, watchSignIn } from './authSaga';
 
 export default function* rootSaga() {
-  yield all([watchFetchProperties(), watchSignIn()]);
+  yield all([watchFetchProperties(), watchLoadUser(), watchSignIn()]);
 }
