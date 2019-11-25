@@ -1,9 +1,9 @@
-import { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_ERROR } from '../actions/types';
+import { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_ERROR, NO_USER } from '../actions/types';
 
 const INITIAL_STATE = {
   token: null,
   isAuthenticated: null,
-  loading: false,
+  loading: true,
   errors: null,
   user: null
 };
@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SIGN_IN:
-      return { ...INITIAL_STATE };
+      return { ...INITIAL_STATE, loading: true };
     case SIGN_IN_SUCCESS:
       return {
         ...state,
@@ -30,6 +30,8 @@ export default (state = INITIAL_STATE, action) => {
         errors: action.payload,
         user: null
       };
+    case NO_USER:
+      return { ...INITIAL_STATE, loading: false };
     default:
       return state;
   }

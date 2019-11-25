@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadUser } from './actions';
+import { loadUser, noUser } from './actions';
 import Home from './pages/common/Home/Home';
 import Properties from './pages/common/Properties/Properties';
 import SignIn from './pages/admin/SignIn/SignIn';
@@ -11,10 +11,10 @@ import './App.scss';
 
 import FormTest from './pages/FormTest';
 
-const App = ({ loadUser }) => {
+const App = ({ loadUser, noUser }) => {
   useEffect(() => {
-    loadUser();
-  }, [loadUser]);
+    localStorage.getItem('token') ? loadUser() : noUser();
+  }, [loadUser, noUser]);
 
   return (
     <BrowserRouter>
@@ -30,7 +30,8 @@ const App = ({ loadUser }) => {
 };
 
 App.propTypes = {
-  loadUser: propTypes.func.isRequired
+  loadUser: propTypes.func.isRequired,
+  noUser: propTypes.func.isRequired
 };
 
-export default connect(null, { loadUser })(App);
+export default connect(null, { loadUser, noUser })(App);
