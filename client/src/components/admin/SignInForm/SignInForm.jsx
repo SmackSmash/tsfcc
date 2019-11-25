@@ -11,24 +11,18 @@ import Error from '../Error/Error';
 import FormGroup from '../FormGroup/FormGroup';
 import Button from '../Button/Button';
 
+const initialValues = {
+  username: '',
+  password: ''
+};
+
+const validationSchema = yup.object().shape({
+  username: yup.string().required(),
+  password: yup.string().required()
+});
+
 const SignInForm = ({ auth: { loading, errors, isAuthenticated }, signIn }) => {
-  const initialValues = {
-    username: '',
-    password: ''
-  };
-
-  const validationSchema = yup.object().shape({
-    username: yup.string().required(),
-    password: yup
-      .string()
-      .required()
-      .min(6)
-  });
-
-  const onSubmit = formValues => {
-    console.log(formValues);
-    signIn(formValues);
-  };
+  const onSubmit = formValues => signIn(formValues);
 
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
