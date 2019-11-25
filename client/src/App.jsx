@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loadUser, noUser } from './actions';
+import setAuthToken from './utils/setAuthToken';
 import Home from './pages/common/Home/Home';
 import Properties from './pages/common/Properties/Properties';
 import SignIn from './pages/admin/SignIn/SignIn';
@@ -13,7 +14,7 @@ import FormTest from './pages/FormTest';
 
 const App = ({ loadUser, noUser }) => {
   useEffect(() => {
-    localStorage.getItem('token') ? loadUser() : noUser();
+    setAuthToken() ? loadUser() : noUser();
   }, [loadUser, noUser]);
 
   return (

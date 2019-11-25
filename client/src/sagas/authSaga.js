@@ -1,8 +1,14 @@
 import { takeLatest, put } from 'redux-saga/effects';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_ERROR, LOAD_USER } from '../actions/types';
-import setAuthToken from '../utils/setAuthToken';
+import {
+  SIGN_IN,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_ERROR,
+  LOAD_USER,
+  AUTH_ERROR,
+  AUTH_SUCCESS
+} from '../actions/types';
 
 // Watchers
 export function* watchSignIn() {
@@ -10,8 +16,7 @@ export function* watchSignIn() {
 }
 
 export function* watchLoadUser() {
-  const token = setAuthToken();
-  if (token) yield takeLatest(LOAD_USER, loadUserAsync);
+  yield takeLatest(LOAD_USER, loadUserAsync);
 }
 
 // Workers
@@ -47,12 +52,12 @@ function* loadUserAsync() {
       localStorage.removeItem('token');
       const errors = response.data.errors;
       yield put({
-        type: SIGN_IN_ERROR,
+        type: AUTH_ERROR,
         payload: errors
       });
     } else {
       yield put({
-        type: SIGN_IN_SUCCESS,
+        type: AUTH_SUCCESS,
         payload: {
           token: localStorage.getItem('token'),
           user: response.data.username
@@ -64,7 +69,7 @@ function* loadUserAsync() {
     localStorage.removeItem('token');
     const errors = error.response.data.errors;
     yield put({
-      type: SIGN_IN_ERROR,
+      type: AUTH_ERROR,
       payload: errors
     });
   }
