@@ -5,7 +5,7 @@
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  animation: pulse 1.5s ease-in-out 1s infinite;
+  animation: pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes pulse {

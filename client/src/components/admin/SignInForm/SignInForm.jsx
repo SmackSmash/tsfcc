@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
@@ -21,12 +20,8 @@ const validationSchema = yup.object().shape({
   password: yup.string().required()
 });
 
-const SignInForm = ({ auth: { loading, errors, isAuthenticated }, signIn }) => {
+const SignInForm = ({ auth: { loading, errors }, signIn }) => {
   const onSubmit = formValues => signIn(formValues);
-
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
-  }
 
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
