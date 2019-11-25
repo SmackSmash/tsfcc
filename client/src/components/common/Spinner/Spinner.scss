@@ -1,0 +1,21 @@
+.spinner {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  animation: pulse 1.5s ease-in-out 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translateX(-50%) translateY(-50%) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-50%) scale(1.1) rotate(120deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) scale(1) rotate(240deg);
+  }
+}
