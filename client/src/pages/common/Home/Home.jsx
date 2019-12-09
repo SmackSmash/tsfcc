@@ -1,21 +1,18 @@
 import React from 'react';
-import EditorJS from '@editorjs/editorjs';
-import Header from '@editorjs/header';
+import EditorJs from 'react-editor-js';
+import EDITOR_JS_TOOLS from '../../../utils/editorJsTools';
 import Common from '../../../containers/Common/Common';
 import './Home.scss';
 
 const Home = props => {
-  const editor = new EditorJS({
-    holderId: 'editor',
-    tools: {
-      header: Header
-    }
-  });
+  const page = 'home';
+  const data = {};
+  let editor;
 
   const savePage = async () => {
     try {
       const outputData = await editor.save();
-      console.log(outputData);
+      console.log({ page, ...outputData });
     } catch (error) {
       console.error(error.message);
       alert(error.message);
@@ -24,7 +21,7 @@ const Home = props => {
 
   return (
     <Common>
-      <div id="editor"></div>
+      <EditorJs instanceRef={instance => (editor = instance)} data={data} tools={EDITOR_JS_TOOLS} />
       <button onClick={savePage}>Save Page</button>
     </Common>
   );

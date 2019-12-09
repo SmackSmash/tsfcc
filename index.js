@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/properties', require('./routes/properties'));
+app.use('/api/pages', require('./routes/pages'));
 
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
