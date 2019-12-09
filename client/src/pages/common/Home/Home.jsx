@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import EditorJs from 'react-editor-js';
 import EDITOR_JS_TOOLS from '../../../utils/editorJsTools';
 import Common from '../../../containers/Common/Common';
+import Loading from '../Loading/Loading';
 import './Home.scss';
 
 const Home = props => {
-  const page = 'home';
-  const data = {};
+  const [pageData, setPageData] = useState({});
+  const pageName = 'home';
   let editor;
 
-  const savePage = async () => {
+  useEffect(() => {
+    const getPageData = async pageName => {
+      const result = await axios.get(`/api/pages/${pageName}`);
+      setPageData(result.data);
+    };
+    getPageData(pageName);
+  }, []);
+
+  console.log(pageData);
+
+  const handleSave = async () => {
     try {
       const outputData = await editor.save();
-      console.log({ page, ...outputData });
+      console.log({ pageName, ...outputData });
     } catch (error) {
       console.error(error.message);
       alert(error.message);
@@ -21,8 +33,18 @@ const Home = props => {
 
   return (
     <Common>
-      <EditorJs instanceRef={instance => (editor = instance)} data={data} tools={EDITOR_JS_TOOLS} />
-      <button onClick={savePage}>Save Page</button>
+      {!Object.entries(pageData).length ? (
+        <Loading />
+      ) : (
+        <>
+          <EditorJs
+            instanceRef={instance => (editor = instance)}
+            data={pageData}
+            tools={EDITOR_JS_TOOLS}
+          />
+          <button onClick={handleSave}>Save Page</button>
+        </>
+      )}
     </Common>
   );
 };
