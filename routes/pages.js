@@ -7,11 +7,7 @@ const { Page, validatePage } = require('../models/page');
 // @access  Public
 router.get('/:pageName', async (req, res) => {
   try {
-    const page = await Page.findOne({ pageName: req.params.pageName }).select([
-      '-_id',
-      '-pageName',
-      '-__v'
-    ]);
+    const page = await Page.findOne({ pageName: req.params.pageName });
     if (!page) {
       return res.status(404).send({
         errors: ['Page not found']

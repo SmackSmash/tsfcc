@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import EditorJs from 'react-editor-js';
 import EDITOR_JS_TOOLS from '../../../utils/editorJsTools';
+import renderPageContent from '../../../utils/renderPageContent';
 import Common from '../../../containers/Common/Common';
 import Loading from '../Loading/Loading';
 import './Home.scss';
 
-const Home = props => {
+const Home = ({ isAuthenticated }) => {
   const [pageData, setPageData] = useState({});
   const pageName = 'home';
   let editor;
@@ -35,7 +37,7 @@ const Home = props => {
     <Common>
       {!Object.entries(pageData).length ? (
         <Loading />
-      ) : (
+      ) : isAuthenticated ? (
         <>
           <EditorJs
             instanceRef={instance => (editor = instance)}
@@ -44,9 +46,13 @@ const Home = props => {
           />
           <button onClick={handleSave}>Save Page</button>
         </>
+      ) : (
+        pageData.blocks.map(block => renderPageContent(block))
       )}
     </Common>
   );
 };
 
-export default Home;
+const mapStateToProps = ({ auth: { isAuthenticated } }) => ({ isAuthenticated });
+
+export default connect(mapStateToProps)(Home);
